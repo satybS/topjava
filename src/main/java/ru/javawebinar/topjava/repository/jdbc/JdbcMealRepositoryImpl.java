@@ -10,12 +10,10 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
-import ru.javawebinar.topjava.util.TimeUtil;
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * User: gkislin
@@ -50,9 +48,11 @@ public class JdbcMealRepositoryImpl implements MealRepository {
                 .addValue("description", meal.getDescription())
                 .addValue("calories", meal.getCalories())
                 .addValue("user_id", userId);
+
         if (meal.isNew()) {
             Number newKey = insertMeal.executeAndReturnKey(map);
             meal.setId(newKey.intValue());
+
         } else {
             namedParameterJdbcTemplate.update(
                     "UPDATE meals SET datetime=:datetime, description=:description, calories=:calories " +

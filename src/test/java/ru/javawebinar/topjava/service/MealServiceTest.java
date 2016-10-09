@@ -9,10 +9,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.DbPopulator;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
 import static ru.javawebinar.topjava.MealTestData.BREAKFAST;
 import static ru.javawebinar.topjava.MealTestData.LANCH;
 import static ru.javawebinar.topjava.MealTestData.MATCHER;
@@ -55,7 +57,9 @@ public class MealServiceTest {
 
     @Test
     public void testGetBetweenDates() throws Exception {
-        MATCHER.assertCollectionEquals(Collections.singletonList(LANCH), service.getBetweenDateTimes(LocalDateTime.parse("2015-05-30T11:00:00"),LocalDateTime.parse("2015-05-30T14:00:00"),USER_ID));
+        MATCHER.assertCollectionEquals(Collections.singletonList(LANCH), service.getBetweenDateTimes(
+                LocalDateTime.parse("2015-05-30T11:00:00"),
+                LocalDateTime.parse("2015-05-30T14:00:00"), USER_ID));
     }
 
 
