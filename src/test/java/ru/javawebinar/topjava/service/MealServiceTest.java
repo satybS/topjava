@@ -1,6 +1,9 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -11,7 +14,9 @@ import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
 
@@ -29,6 +34,23 @@ public class MealServiceTest {
 
     @Autowired
     protected MealService service;
+
+    @Rule
+    public TestWatcher watcher = new TestWatcher() {
+        LocalDateTime start;
+        LocalDateTime end;
+
+        @Override
+        protected void starting(Description description) {
+            start = LocalDateTime.now();
+        }
+
+        @Override
+        protected void finished(Description description) {
+            end = LocalDateTime.now();
+            System.out.println("Duration of test run is  "+ Duration.between(start, end));
+        }
+    };
 
     @Test
     public void testDelete() throws Exception {
