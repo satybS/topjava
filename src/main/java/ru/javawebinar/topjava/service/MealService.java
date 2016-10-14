@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.service;
 
-import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -13,19 +13,19 @@ import java.util.Collection;
  * 15.06.2015.
  */
 public interface MealService {
-    Meal get(int id, int userId) throws NotFoundException;
+    UserMeal get(int id, int userId) throws NotFoundException;
 
     void delete(int id, int userId) throws NotFoundException;
 
-    default Collection<Meal> getBetweenDates(LocalDate startDate, LocalDate endDate, int userId) {
+    default Collection<UserMeal> getBetweenDates(LocalDate startDate, LocalDate endDate, int userId) {
         return getBetweenDateTimes(LocalDateTime.of(startDate, LocalTime.MIN), LocalDateTime.of(endDate, LocalTime.MAX), userId);
     }
 
-    Collection<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
+    Collection<UserMeal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
 
-    Collection<Meal> getAll(int userId);
+    Collection<UserMeal> getAll(int userId);
 
-    Meal update(Meal meal, int userId) throws NotFoundException;
+    UserMeal update(UserMeal meal, int userId) throws NotFoundException;
 
-    Meal save(Meal meal, int userId);
+    UserMeal save(UserMeal meal, int userId);
 }

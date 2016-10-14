@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.TimeUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 
@@ -47,7 +47,7 @@ public class MealServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
-            final Meal meal = new Meal(
+            final UserMeal meal = new UserMeal(
                     LocalDateTime.parse(request.getParameter("dateTime")),
                     request.getParameter("description"),
                     Integer.valueOf(request.getParameter("calories")));
@@ -92,8 +92,8 @@ public class MealServlet extends HttpServlet {
             response.sendRedirect("meals");
 
         } else if ("create".equals(action) || "update".equals(action)) {
-            final Meal meal = "create".equals(action) ?
-                    new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), "", 1000) :
+            final UserMeal meal = "create".equals(action) ?
+                    new UserMeal(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), "", 1000) :
                     mealController.get(getId(request));
             request.setAttribute("meal", meal);
             request.getRequestDispatcher("meal.jsp").forward(request, response);

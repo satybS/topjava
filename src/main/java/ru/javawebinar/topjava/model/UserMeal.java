@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,24 +9,49 @@ import java.time.LocalTime;
  * GKislin
  * 11.01.2015.
  */
-public class Meal extends BaseEntity {
+
+@NamedQueries({
+        @NamedQuery(name = UserMeal.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = UserMeal.GET, query = "SELECT m FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = UserMeal.GET_ALL,
+                query = "SELECT m FROM UserMeal m WHERE m.user.id =:userId ORDER BY m.dateTime DESC"),
+        @NamedQuery(name = UserMeal.GET_BETWEEN,
+                query = "SELECT m FROM UserMeal m WHERE m.user.id =:userId AND m.dateTime>:startDate " +
+                        "AND m.dateTime<:endDate ORDER BY m.dateTime DESC"),
+})
+
+
+@Entity
+@Table(name = "meals")
+public class UserMeal extends BaseEntity {
+
+
+    public static final String DELETE = "Meal.delete";
+    public static final String GET = "Meal.get";
+    public static final String GET_ALL = "Meal.getAll";
+    public static final String GET_BETWEEN = "Meal.getBetween";
+
+    @Column (name = "date_time", nullable = false)
     private LocalDateTime dateTime;
 
+    @Column (name = "description", nullable = false)
     private String description;
 
+    @Column (name = "calories", nullable = false)
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName="id", nullable = false)
     private User user;
 
-    public Meal() {
+    public UserMeal() {
     }
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
+    public UserMeal(LocalDateTime dateTime, String description, int calories) {
         this(null, dateTime, description, calories);
     }
 
-    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
+    public UserMeal(Integer id, LocalDateTime dateTime, String description, int calories) {
         super(id);
         this.dateTime = dateTime;
         this.description = description;

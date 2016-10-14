@@ -8,7 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.MealTestData;
-import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -43,14 +43,14 @@ public class MealServiceTest {
 
     @Test
     public void testSave() throws Exception {
-        Meal created = getCreated();
+        UserMeal created = getCreated();
         service.save(created, USER_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
 
     @Test
     public void testGet() throws Exception {
-        Meal actual = service.get(ADMIN_MEAL_ID, ADMIN_ID);
+        UserMeal actual = service.get(ADMIN_MEAL_ID, ADMIN_ID);
         MATCHER.assertEquals(ADMIN_MEAL1, actual);
     }
 
@@ -61,14 +61,14 @@ public class MealServiceTest {
 
     @Test
     public void testUpdate() throws Exception {
-        Meal updated = getUpdated();
+        UserMeal updated = getUpdated();
         service.update(updated, USER_ID);
         MATCHER.assertEquals(updated, service.get(MEAL1_ID, USER_ID));
     }
 
     @Test(expected = NotFoundException.class)
     public void testNotFoundUpdate() throws Exception {
-        Meal item = service.get(MEAL1_ID, USER_ID);
+        UserMeal item = service.get(MEAL1_ID, USER_ID);
         service.update(item, ADMIN_ID);
     }
 
