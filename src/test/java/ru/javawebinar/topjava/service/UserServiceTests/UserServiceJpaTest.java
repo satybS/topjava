@@ -8,8 +8,7 @@ import ru.javawebinar.topjava.service.AbstractUserServiceTest;
  * Created by sanzhar on 10/18/16.
  */
 
-
-@ActiveProfiles(Profiles.JPA)
+@ActiveProfiles({Profiles.HSQLDB,Profiles.JPA})
 public class UserServiceJpaTest extends AbstractUserServiceTest {
 
 

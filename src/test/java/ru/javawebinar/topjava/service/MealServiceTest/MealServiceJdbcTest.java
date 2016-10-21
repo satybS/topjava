@@ -7,6 +7,6 @@ import ru.javawebinar.topjava.service.AbstractMealServiceTest;
 /**
  * Created by sanzhar on 10/20/16.
  */
-@ActiveProfiles(Profiles.JDBC)
+@ActiveProfiles({Profiles.POSTGRES,Profiles.JDBC})
 public class MealServiceJdbcTest extends AbstractMealServiceTest {
 }

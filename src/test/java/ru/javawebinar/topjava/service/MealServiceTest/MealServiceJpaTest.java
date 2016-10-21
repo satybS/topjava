@@ -7,6 +7,6 @@ import ru.javawebinar.topjava.service.AbstractMealServiceTest;
 /**
  * Created by sanzhar on 10/20/16.
  */
-@ActiveProfiles(Profiles.JPA)
+@ActiveProfiles({Profiles.HSQLDB,Profiles.JPA})
 public class MealServiceJpaTest extends AbstractMealServiceTest {
 }
