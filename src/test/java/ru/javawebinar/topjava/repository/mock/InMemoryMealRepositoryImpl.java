@@ -14,11 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
-import static ru.javawebinar.topjava.UserTestData.USER_ID;
-
-import static ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl.ADMIN_ID;
-import static ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl.USER_ID;
 
 /**
  * GKislin
@@ -67,7 +62,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     @Override
     public Collection<Meal> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
         return getAllStream(userId)
-                .filter(um -> TimeUtil.isBetween(um.getDateTime(), startDateTime, endDateTime))
+                .filter(m -> TimeUtil.isBetween(m.getDateTime(), startDateTime, endDateTime))
                 .collect(Collectors.toList());
     }
 
