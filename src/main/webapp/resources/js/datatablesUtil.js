@@ -80,3 +80,4 @@ function failNoty(event, jqXHR, options, jsExc) {
         layout: 'bottomRight'
     });
 }
+
